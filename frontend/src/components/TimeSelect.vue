@@ -110,7 +110,7 @@ function goNext() {
 }
 
 onMounted(() => {
-  days.value = getUpcomingDays(7)
+  days.value = getUpcomingDays(6)
 })
 </script>
 

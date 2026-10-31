@@ -120,7 +120,7 @@ function openTelegram() {
 onMounted(() => {
   extractTelegramId()
   launchConfetti()
-  trySubmitToBackend()
+  // trySubmitToBackend()
 })
 </script>
 

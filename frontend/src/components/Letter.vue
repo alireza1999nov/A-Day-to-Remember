@@ -100,18 +100,29 @@ function moveNoButton() {
   if (noHidden.value || !noBtn.value || !btnRow.value) return
 
   const row = btnRow.value.getBoundingClientRect()
-  const btn = noBtn.value.getBoundingClientRect()
+  const btnW = noBtn.value.offsetWidth || 90
+  const btnH = noBtn.value.offsetHeight || 48
 
-  const maxX = Math.max(row.width - btn.width - 20, 40)
-  const maxY = 90
+  // منطقه امن: فقط نیمه راست + کمی پایین‌تر از ردیف دکمه‌ها
+  // دکمه «آره» سمت چپ است، پس «نه» هرگز به سمت چپ نمی‌آید
+  const safeLeft = row.width * 0.52          // از وسط به بعد
+  const safeRight = row.width - btnW - 12
+  const safeTop = 55                         // پایین‌تر از دکمه آره
+  const safeBottom = 100
 
-  const x = (Math.random() * maxX) - (maxX / 2)
-  const y = (Math.random() * maxY) - 30
+  const maxX = Math.max(safeRight, safeLeft + 10)
+  const maxY = Math.max(safeBottom, safeTop + 10)
+
+  const x = safeLeft + Math.random() * (maxX - safeLeft)
+  const y = safeTop + Math.random() * (maxY - safeTop)
 
   noBtnStyle.value = {
     position: 'absolute',
+    left: '0',
+    top: '0',
     transform: `translate(${x}px, ${y}px)`,
-    transition: 'transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1)'
+    transition: 'transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1)',
+    zIndex: 20
   }
 }
 
@@ -270,7 +281,8 @@ onMounted(() => {
   justify-content: center;
   align-items: center;
   position: relative;
-  min-height: 64px;
+  min-height: 160px;
+  padding-bottom: 12px;
 }
 
 .btn {
@@ -313,7 +325,7 @@ onMounted(() => {
 
 .hint-msg {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 36px;
   font-size: 14px;
   color: #c97b84;
   min-height: 22px;

@@ -11,9 +11,9 @@ const months = [
 ]
 
 /**
- * برمی‌گرداند ۷ روز آینده به صورت شمسی
+ * برمی‌گرداند چند روز آینده به صورت شمسی (پیش‌فرض ۶ روز)
  */
-export function getUpcomingDays(count = 7) {
+export function getUpcomingDays(count = 6) {
   const days = []
   const today = dayjs().calendar('jalali')
 
